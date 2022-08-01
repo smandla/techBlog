@@ -17,9 +17,9 @@ Comment.belongsTo(Blog, {
   foreignKey: "blog_id",
 });
 
-Comment.hasOne(User, {
-  foreignKey: "comment_id",
-});
+// Comment.hasOne(User, {
+//   foreignKey: "comment_id",
+// });
 
 //comment belongs to one user
 //users have many comments
