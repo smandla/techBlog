@@ -7,3 +7,4 @@ const router = require("express").Router();
 //TODO: deal with login?
 
 //TODO: deal with link to dashboard
+module.exports = router;
