@@ -1,5 +1,5 @@
-const { Blog } = require("../models");
-const blogData = [
+const { Comment } = require("../models");
+const commentData = [
   {
     post_title: "Warriors in 6!",
     content: "Warriors did it again!",
@@ -12,5 +12,5 @@ const blogData = [
   },
 ];
 
-const seedBlog = () => Blog.bulkCreate(blogData);
-module.exports = seedBlog;
+const seedComment = () => Comment.bulkCreate(commentData);
+module.exports = seedComment;
