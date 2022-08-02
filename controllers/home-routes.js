@@ -1,10 +1,10 @@
-const router = require("express").Router();
+// const router = require("express").Router();
 
-// const {};
+// // const {};
 
-//TODO: GET all existing blogs for homepage
+// //TODO: GET all existing blogs for homepage
 
-//TODO: deal with login?
+// //TODO: deal with login?
 
-//TODO: deal with link to dashboard
-module.exports = router;
+// //TODO: deal with link to dashboard
+// module.exports = router;
