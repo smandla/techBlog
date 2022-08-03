@@ -4,13 +4,13 @@ const { Blog, Comment } = require("../models");
 
 /** GET all blogs and render to 'homepage' */
 router.get("/", async (req, res) => {
-  console.log(req.session.username);
+  // console.log(req.session.username);
   try {
     const dbBlogData = await Blog.findAll({
       include: [{ all: true }],
     });
     const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
-    console.log("BLOGS", blogs);
+    // console.log("BLOGS", blogs);
     res.render("homepage", {
       blogs,
       loggedIn: req.session.loggedIn,
