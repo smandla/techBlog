@@ -1,10 +1,6 @@
-<section id="dashboard_home">
-{{#each blogs as |blog|}}
-{{> blog-details}}
-{{/each}}
-</section> 
-<section id="add-blog-section" style="display:none;">
-  <div class="login-card" >
+<div class="container justify-space-between-md w-100 bg-dark display-flex">
+
+<div class="login-card" >
     <h2 class="page-title">Create New Blog</h2>
     <form class="form addblog-form">
       <div class="form-group">
@@ -20,7 +16,7 @@
         <button class="btn btn-primary"  id="create-blog" type="submit">Create</button>
       </div>
     </form>
+    
   </div>
-</section>
-<button class="btn btn-primary" id="add-blog">+ New Post</button>
- <script src="./js/add-blog.js"></script>
+
+  </div>

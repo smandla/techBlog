@@ -6,16 +6,14 @@ const withAuth = require("../utils/auth");
 //get all blogs by creator
 console.log("hello");
 router.get("/:creator", withAuth, async (req, res) => {
-  console.log("USERNAME", req.session.username);
   try {
     const dbBlogDataByCreator = await Blog.findAll({
       where: {
         creator: req.params.creator,
       },
     });
-
     const blogs = dbBlogDataByCreator.map((blog) => blog.get({ plain: true }));
-    console.log("blogs", blogs);
+
     res.status(200).json(blogs);
     res.render("dashboard", {
       blogs,
@@ -30,11 +28,7 @@ router.get("/:creator", withAuth, async (req, res) => {
 
 //get all blogs by creator
 router.get("/", withAuth, async (req, res) => {
-  console.log("hello");
-  console.log("creator", req.session.creator);
-  console.log(req.session.loggedIn);
   try {
-    console.log("USERNAME", req.session.username);
     const dbBlogDataByCreator = await Blog.findAll({
       where: {
         creator: req.session.creator,
@@ -42,17 +36,7 @@ router.get("/", withAuth, async (req, res) => {
 
       include: [{ all: true, nested: true }],
     });
-    // console.log(dbBlogDataByCreator);
     const blogs = dbBlogDataByCreator.map((blog) => blog.get({ plain: true }));
-    console.log("blogs", blogs);
-    // const blogs = [
-    //   {
-    //     post_title: "CoroNdscesddAH!",
-    //     content: "When willwedwed this end..",
-    //     creator: 1,
-    //   },
-    // ];
-    // res.status(200).json(blogs);
     res.render("dashboard", {
       blogs,
       loggedIn: req.session.loggedIn,
@@ -62,7 +46,14 @@ router.get("/", withAuth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-//get comments by blog id
+
+//TODO: get post form GET /creator/addBlog
+router.get("/:creator/addBlog", async (req, res) => {
+  return res.render("add-blog", {
+    creator: req.session.creator,
+    loggedIn: req.session.loggedIn,
+  });
+});
 
 //post new blog
 router.post("/", withAuth, async (req, res) => {
@@ -77,8 +68,11 @@ router.post("/", withAuth, async (req, res) => {
     res.status(400).json(error);
   }
 });
-//get update form
 
-//delete post
+//TODO: get update form
+
+//TODO: update form
+
+//TODO: delete post
 
 module.exports = router;
