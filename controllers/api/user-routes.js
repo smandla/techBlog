@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     });
     // console.log(dbUserData);
     const data = dbUserData.get({ plain: true });
-    console.log(data.id);
+    console.log(data.username);
     req.session.save(() => {
       req.session.creator = data.id;
       req.session.loggedIn = true;
@@ -32,6 +32,8 @@ router.post("/login", async (req, res) => {
         .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
+    const data = dbUserData.get({ plain: true });
+    console.log(data.id);
     const validPassword = dbUserData.checkPassword(req.body.password);
     if (!validPassword) {
       res
@@ -41,6 +43,8 @@ router.post("/login", async (req, res) => {
     }
     req.session.save(() => {
       //save user for session
+      req.session.username = data.username;
+      req.session.creator = data.id;
       req.session.loggedIn = true;
 
       res
