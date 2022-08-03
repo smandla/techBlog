@@ -8,9 +8,16 @@ const blogData = [
   {
     post_title: "CoroNAH!",
     content: "When will this end..",
-    creator: 3,
+    creator: 2,
   },
 ];
 
-const seedBlog = () => Blog.bulkCreate(blogData);
+const seedBlog = async (req, res) => {
+  try {
+    const data = await Blog.bulkCreate(blogData, { individualHooks: true });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 module.exports = seedBlog;

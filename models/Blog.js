@@ -25,7 +25,7 @@ Blog.init(
         key: "id",
       },
 
-      //comments?
+      // comments?
     },
   },
   {

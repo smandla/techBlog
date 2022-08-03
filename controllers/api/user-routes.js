@@ -9,8 +9,11 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    // save session.loggedIn = true
+    // console.log(dbUserData);
+    const data = dbUserData.get({ plain: true });
+    console.log(data.id);
     req.session.save(() => {
+      req.session.creator = data.id;
       req.session.loggedIn = true;
       res.status(200).json(dbUserData);
     });
@@ -37,6 +40,7 @@ router.post("/login", async (req, res) => {
       return;
     }
     req.session.save(() => {
+      //save user for session
       req.session.loggedIn = true;
 
       res
