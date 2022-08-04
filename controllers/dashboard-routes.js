@@ -95,5 +95,22 @@ router.put("/update/:id", withAuth, async (req, res) => {
 });
 
 //TODO: delete post
+router.delete("/:id", withAuth, async (req, res) => {
+  try {
+    const blogData = await Blog.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log("Data to be DELETED: ", blogData);
+    if (!blogData) {
+      res.status(400).json({ message: "Id does not exist!" });
+      return;
+    }
+    res.status(200).json(blogData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 module.exports = router;
