@@ -49,6 +49,4 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-//TODO: deal with link to dashboard
-
 module.exports = router;
