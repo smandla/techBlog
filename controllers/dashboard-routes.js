@@ -4,7 +4,6 @@ const { Blog, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 //get all blogs by creator
-console.log("hello");
 router.get("/:creator", withAuth, async (req, res) => {
   try {
     const dbBlogDataByCreator = await Blog.findAll({
@@ -14,7 +13,7 @@ router.get("/:creator", withAuth, async (req, res) => {
     });
     const blogs = dbBlogDataByCreator.map((blog) => blog.get({ plain: true }));
 
-    res.status(200).json(blogs);
+    // res.status(200).json(blogs);
     res.render("dashboard", {
       blogs,
       loggedIn: req.session.loggedIn,
@@ -33,10 +32,9 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         creator: req.session.creator,
       },
-
-      include: [{ all: true, nested: true }],
     });
     const blogs = dbBlogDataByCreator.map((blog) => blog.get({ plain: true }));
+    // res.status(200).json(blogs);
     res.render("dashboard", {
       blogs,
       loggedIn: req.session.loggedIn,
@@ -48,21 +46,28 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 //TODO: get post form GET /creator/addBlog
-router.get("/:creator/addBlog", async (req, res) => {
+router.get("/addBlog", async (req, res) => {
+  console.log("logged in", req.session.loggedIn);
+  console.log("creator", req.session.creator);
   return res.render("add-blog", {
     creator: req.session.creator,
     loggedIn: req.session.loggedIn,
   });
 });
 
+//TODO: Look into this...
 //post new blog
-router.post("/", withAuth, async (req, res) => {
+router.post("/addBlog", withAuth, async (req, res) => {
+  console.log("logged in", req.session.loggedIn);
+  console.log("creator", req.session.creator);
   try {
     const dbBlogData = await Blog.create({
       post_title: req.body.post_title,
       content: req.body.content,
-      creator: req.body.creator,
+      creator: req.session.creator,
     });
+    // const blog = dbBlogData.get({ plain: true });
+    // console.log(blog);
     res.status(200).json(dbBlogData);
   } catch (error) {
     res.status(400).json(error);
@@ -72,6 +77,22 @@ router.post("/", withAuth, async (req, res) => {
 //TODO: get update form
 
 //TODO: update form
+router.put("/update/:id", withAuth, async (req, res) => {
+  try {
+    const blogData = await Blog.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!blogData[0]) {
+      res.status(404).json({ message: "No exists " });
+      return;
+    }
+    res.status(200).json(blogData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 //TODO: delete post
 

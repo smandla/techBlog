@@ -11,7 +11,8 @@ router.post("/", async (req, res) => {
     });
     // console.log(dbUserData);
     const data = dbUserData.get({ plain: true });
-    console.log(data.username);
+    console.log("REGISTER DATA", data);
+
     req.session.save(() => {
       req.session.creator = data.id;
       req.session.loggedIn = true;
@@ -33,7 +34,7 @@ router.post("/login", async (req, res) => {
       return;
     }
     const data = dbUserData.get({ plain: true });
-    console.log(data.id);
+    console.log("LOGIN DATA", data);
     const validPassword = dbUserData.checkPassword(req.body.password);
     if (!validPassword) {
       res
