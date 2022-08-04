@@ -23,8 +23,27 @@ router.put("/update/:id", withAuth, async (req, res) => {
         id: req.params.id,
       },
     });
+    console.log(commentData);
     if (!commentData[0]) {
       res.status(404).json({ message: "NO exists " });
+      return;
+    }
+    res.status(200).json(commentData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.delete("/delete/:id", withAuth, async (req, res) => {
+  try {
+    const commentData = await Comment.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!commentData) {
+      res.status(400).json({ message: "id does not exist" });
       return;
     }
     res.status(200).json(commentData);
