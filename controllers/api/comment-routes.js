@@ -24,8 +24,12 @@ router.put("/update/:id", withAuth, async (req, res) => {
       },
     });
     if (!commentData[0]) {
-      res.status(404).json({});
+      res.status(404).json({ message: "NO exists " });
+      return;
     }
-  } catch (error) {}
+    res.status(200).json(commentData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 module.exports = router;
