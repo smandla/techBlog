@@ -1,10 +1,14 @@
 const { Comment } = require("../models");
 const commentData = [
   {
-    content: "Warriors did it again!",
+    blog_id: 1,
+    user_id: 1,
+    content: "West Coast! Best Coast!!",
   },
   {
-    content: "When will this end..",
+    blog_id: 2,
+    user_id: 2,
+    content: "2 years... too much...",
   },
 ];
 

@@ -2,21 +2,17 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
-
 //To  store the session information in the db, we will use express-session-sequeelize;
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
-//TODO: date helpers
 const helpers = require("./utils/helpers");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-//TODO: understand this...
 const sess = {
   secret: "Super secret secret",
-  cookie: {},
+  cookie: {maxAge: 90000},
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({

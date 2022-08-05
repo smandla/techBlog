@@ -13,14 +13,12 @@ const submitFormHandler = async (event) => {
 
   const title = document.getElementById("addblog-title").value.trim();
   const content = document.getElementById("addblog-content").value.trim();
-  console.log(title, content);
   if (title && content) {
     const response = await fetch("/dashboard/addBlog", {
       method: "POST",
       body: JSON.stringify({ title, content }),
       headers: { "Content-Type": "application/json" },
     });
-    console.log(response);
     if (response.ok) {
       document.location.replace("/dashboard");
     } else {

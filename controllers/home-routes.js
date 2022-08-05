@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { Blog, Comment } = require("../models");
+const { Blog, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 /** GET all blogs and render to 'homepage' */
@@ -27,13 +27,22 @@ router.get("/", async (req, res) => {
 router.get("/blog/:id", withAuth, async (req, res) => {
   try {
     const dbBlogData = await Blog.findByPk(req.params.id, {
-      include: [{ model: Comment }],
+      include: [
+        {
+          model: Comment,
+          include: [{ model: User, nested: true }],
+        },
+        { model: User },
+      ],
     });
 
     const blog = dbBlogData.get({ plain: true });
+    const comments = blog.comments;
+    console.log(comments);
 
     res.render("blog", {
       blog,
+      comments,
       loggedIn: req.session.loggedIn,
     });
   } catch (error) {
